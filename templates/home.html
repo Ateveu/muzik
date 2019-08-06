@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+    Hi {{ user.username }}!
+    <p><a href="{% url 'logout' %}">logout</a></p>
+  {% else %}
+    <p>You are not logged in</p>
+    <a href="{% url 'user:login' %}">login</a> |
+    <a href="{% url 'user:artist_signup' %}">signup as artist</a>
+    <a href="{% url 'user:normal_signup' %}">signup as user</a>
+  {% endif %}
+  {% for event in events %}
+    <p>{{ event.name }}</p>
+    <img src="{{ event.photo.url }}" alt="{{ event.name }}">
+  {% endfor %}
+{% endblock %}
